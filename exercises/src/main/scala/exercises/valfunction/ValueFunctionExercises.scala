@@ -11,13 +11,13 @@ object ValueFunctionExercises {
   // but     selectDigits("welcome") == ""
   // Note: You can use `filter` method from `String`, also check out the API of `Char`
   def selectDigits(text: String): String =
-    ???
+    text.filter(t => t.isDigit)
 
   // 1b. Implement `secret` which transforms all characters in a String to '*'
   // such as secret("Welcome123") == "**********"
   // Note: Try to use a higher-order function from the String API
   def secret(text: String): String =
-    ???
+    text.map(_ => '*')
 
   // 1c. Implement `isValidUsernameCharacter` which checks if a character is suitable for a username.
   // We accept:
@@ -29,7 +29,7 @@ object ValueFunctionExercises {
   // but          isValidUsernameCharacter('^') == false
   // Note: You might find some useful helper methods on `char`.
   def isValidUsernameCharacter(char: Char): Boolean =
-    ???
+    char.isLetterOrDigit || Set('-', '_').contains(char)
 
   // 1d. Implement `isValidUsername` which checks that all the characters in a String are valid
   // such as isValidUsername("john-doe") == true
