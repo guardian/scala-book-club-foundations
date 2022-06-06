@@ -3,6 +3,8 @@ package exercises.valfunction
 import exercises.valfunction.ValueFunctionExercises._
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
+import org.scalacheck.Gen
+import org.scalacheck.Arbitrary._
 
 class ValueFunctionExercisesTest extends AnyFunSuite with ScalaCheckDrivenPropertyChecks {
 
@@ -56,8 +58,43 @@ class ValueFunctionExercisesTest extends AnyFunSuite with ScalaCheckDrivenProper
     }
   }
 
+  test("isValidUsername returns true for valid usernames") {
+    assert(isValidUsername("john-doe") == true)
+  }
+
+  test("isValidUsername returns false for invalid usernames") {
+    assert(isValidUsername("*john*") == false)
+    assert(isValidUsername("") == false)
+  }
+
   ///////////////////////
   // Exercise 2: Point
   ///////////////////////
+
+  test("isPositive returns true if all integers are zero or a positive integer") {
+    assert(Point(0, 0, 0).isPositive == true)
+
+    forAll(Gen.posNum[Int], Gen.posNum[Int], Gen.posNum[Int]) { (x: Int, y: Int, z: Int) =>
+      assert(Point(x, y, z).isPositive == true)
+    }
+  }
+
+  test("isPositive returns false if any integers are a negative integer") {
+    forAll(Gen.negNum[Int], Gen.negNum[Int], Gen.negNum[Int]) { (x: Int, y: Int, z: Int) =>
+      assert(Point(x, y, z).isPositive == false)
+    }
+
+    forAll(Gen.negNum[Int], arbitrary[Int], arbitrary[Int]) { (x: Int, y: Int, z: Int) =>
+      assert(Point(x, y, z).isPositive == false)
+    }
+
+    forAll(arbitrary[Int], Gen.negNum[Int], arbitrary[Int]) { (x: Int, y: Int, z: Int) =>
+      assert(Point(x, y, z).isPositive == false)
+    }
+
+    forAll(arbitrary[Int], arbitrary[Int], Gen.negNum[Int]) { (x: Int, y: Int, z: Int) =>
+      assert(Point(x, y, z).isPositive == false)
+    }
+  }
 
 }

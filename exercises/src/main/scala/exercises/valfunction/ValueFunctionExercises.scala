@@ -36,7 +36,7 @@ object ValueFunctionExercises {
   // but     isValidUsername("*john*") == false
   // Note: Try to use `isValidUsernameCharacter` and a higher-order function from the String API.
   def isValidUsername(username: String): Boolean =
-    ???
+    username.nonEmpty && username.forall(isValidUsernameCharacter)
 
   ///////////////////////
   // Exercise 2: Point
@@ -49,7 +49,7 @@ object ValueFunctionExercises {
     // but     Point(0,-2,1).isPositive == false
     // Note: `isPositive` is a function defined within `Point` class, so `isPositive` has access to `x`, `y` and `z`.
     def isPositive: Boolean =
-      ???
+      x >= 0 && y >= 0 && z >= 0
 
     // 2b. Implement `isEven` which returns true if `x`, `y` and `z` are all even numbers, false otherwise
     // such as Point(2, 4, 8).isEven == true
